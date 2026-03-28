@@ -1,0 +1,10 @@
+[package]
+name = "csvfmt"
+version = "0.1.0"
+edition = "2024"
+description = "Apply a format string to each row of CSV/TSV data"
+license = "MIT"
+
+[dependencies]
+clap = { version = "4.5", features = ["derive"] }
+csv = "1.3"
