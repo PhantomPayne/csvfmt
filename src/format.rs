@@ -136,7 +136,11 @@ fn parse_key(s: &str) -> Result<FieldKey, String> {
 }
 
 /// Resolve a [`FieldKey`] against a record, returning the field value or `None`.
-pub fn resolve_key<'a>(key: &FieldKey, record: &'a [String], headers: Option<&[String]>) -> Option<&'a str> {
+pub fn resolve_key<'a>(
+    key: &FieldKey,
+    record: &'a [String],
+    headers: Option<&[String]>,
+) -> Option<&'a str> {
     match key {
         FieldKey::Index(n) => record.get(n - 1).map(String::as_str),
         FieldKey::Name(name) => {
@@ -196,7 +200,12 @@ mod tests {
     #[test]
     fn single_index_field() {
         let segs = parse_template("{1}").unwrap();
-        assert_eq!(segs, vec![Segment::Field { key: FieldKey::Index(1) }]);
+        assert_eq!(
+            segs,
+            vec![Segment::Field {
+                key: FieldKey::Index(1)
+            }]
+        );
     }
 
     #[test]
@@ -231,7 +240,9 @@ mod tests {
                 key: FieldKey::Index(3),
                 body: vec![
                     Segment::Literal(" and ".to_string()),
-                    Segment::Field { key: FieldKey::Index(3) },
+                    Segment::Field {
+                        key: FieldKey::Index(3)
+                    },
                 ]
             }]
         );

@@ -113,7 +113,13 @@ fn main() {
 
         let mut fields: Vec<String> = record
             .iter()
-            .map(|f| if args.trim { f.trim().to_string() } else { f.to_string() })
+            .map(|f| {
+                if args.trim {
+                    f.trim().to_string()
+                } else {
+                    f.to_string()
+                }
+            })
             .collect();
 
         // First row → store as headers when -H was given.
@@ -156,6 +162,8 @@ fn parse_delimiter(s: &str) -> Result<u8, String> {
     let chars: Vec<char> = s.chars().collect();
     match chars.as_slice() {
         [c] if c.len_utf8() == 1 => Ok(*c as u8),
-        _ => Err(format!("delimiter must be a single ASCII character, got {s:?}")),
+        _ => Err(format!(
+            "delimiter must be a single ASCII character, got {s:?}"
+        )),
     }
 }
